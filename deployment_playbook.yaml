@@ -1,0 +1,11 @@
+- name: Deploying 'MyCleanRoom' Project
+  hosts: prod
+  become: yes
+  tasks:
+    - name: stop all the services
+      docker_compose:
+        project_src: "/var/lib/jenkins/workspace/mcr_pipeline"
+        state: absent
+    - name: start all the services
+      docker_compose:
+        project_src: "/var/lib/jenkins/workspace/mcr_pipeline"

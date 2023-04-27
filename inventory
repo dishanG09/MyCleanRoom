@@ -1,0 +1,2 @@
+[prod]
+vm1 ansible_host=172.16.201.120 ansible_connection=ssh ansible_user=prod ansible_sudo_pass=mcrprod
