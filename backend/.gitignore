@@ -1,3 +1,6 @@
+# directories to be ignored
 /node_modules
+/logs
 
+#files to be ignored
 .env
