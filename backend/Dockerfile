@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /mycleanroom/server
+WORKDIR /mycleanroom/backend
 
 COPY package*.json ./
 
