@@ -21,7 +21,7 @@ pipeline {
         stage('building project images'){
             steps{
                 //sh 'docker rmi $(docker images --format "{{.Repository}} {{.ID}}" | grep dishang* | awk -F\' \' \'{print $2}\')'
-                sh 'docker build -t dishang09/mcr_backend ./backed'
+                sh 'docker build -t dishang09/mcr_backend ./backend'
             }
         }  
 
