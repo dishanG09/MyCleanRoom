@@ -2,7 +2,7 @@ const app = require("./app");
 const logger = require("./config/logger");
 const mongoose = require("mongoose");
 
-const PORT = process.env.PORT || 6666;
+const PORT = process.env.PORT || 12345;
 
 const server = app.listen(PORT, (err) => {
   if (err) {
