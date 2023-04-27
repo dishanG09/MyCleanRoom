@@ -29,7 +29,6 @@ pipeline {
         stage('Running Test'){
             steps{
                 sh '''
-                    echo $MCR_DB_URI
                     export DB_URI=$MCR_DB_URI
                     cd ./backend
                     npm ci
