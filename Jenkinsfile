@@ -28,7 +28,6 @@ pipeline {
         stage('Running Test'){
             steps{
                 sh '''
-                    $(cat configenv.txt)
                     cd ./server
                     npm ci
                     npm test
@@ -48,7 +47,7 @@ pipeline {
 
         stage('cleaning local images'){
             steps{
-                sh 'docker rmi dishang09/mcr_backend'
+                sh 'docker image prune --force --all'
             }
         }
 
