@@ -13,9 +13,9 @@ services:
       mcr_net:
         ipv4_address: 172.30.1.9
     entrypoint: ["npm", "start"]
-    # environment:
-    #   PORT: 12345
-    #   DB_URI: "mongodb+srv://dishang09:5kAI2GcRAQYpWSX8@mcrcluster.ygwhkup.mongodb.net/?retryWrites=true&w=majority"
+    
+    
+    
 
   mcr_frontend:
     image: dishang09/mcr_frontend
