@@ -15,9 +15,7 @@
         dest: .env
 
     - name: stop all the services
-      docker_compose:
-        project_src: "./"
-        state: absent
+      command: docker-compose down
 
     - name: create all the service, without starting containers
       command: docker-compose up --no-start
