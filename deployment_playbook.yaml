@@ -1,11 +1,32 @@
 - name: Deploying 'MyCleanRoom' Project
   hosts: prod
+  vars_files:
+    - ./backend/enc-env
   become: yes
   tasks:
+    - name: copy compose file to deployment host
+      copy:
+        src: ./docker-compose.yaml
+        dest: ./
+
+    - name: generate env variable file out of jinja2 template
+      template:
+        src: backend/env.j2
+        dest: .env
+
     - name: stop all the services
       docker_compose:
-        project_src: "/var/lib/jenkins/workspace/mcr_pipeline"
+        # project_src: "/var/lib/jenkins/workspace/mcr_pipeline"
         state: absent
-    - name: start all the services
-      docker_compose:
-        project_src: "/var/lib/jenkins/workspace/mcr_pipeline"
+
+    - name: create all the service, without starting containers
+      command: docker-compose up --no-start
+
+    - name: copy env variable file inside backend container
+      command: docker cp .env mcr_pipeline_mcr_backend_1:/mycleanroom/backend
+
+    - name: start the services
+      command: docker-compose up -d
+
+      # docker_compose:
+      #   project_src: "/var/lib/jenkins/workspace/mcr_pipeline"

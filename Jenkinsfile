@@ -7,6 +7,7 @@ pipeline {
         APP_DB = credentials('MYSQL_DB')
         PORT = credentials('SERVER_PORT')
         MCR_DB_URI = credentials('MCR_DB_URI')
+        MCR_VAULT_PASSWORD = credentials('MCR_VAULT_PASSWORD')
     }
 
     agent any
@@ -56,9 +57,15 @@ pipeline {
         stage('deploy application'){
             steps{
                 
-                sh '''
-                    ansible-playbook -i inventory deployment_playbook.yaml
-                '''
+                colorized: true,
+                installation: 'Ansible',
+                inventory: 'inventory',
+                playbook: 'deployment_playbook.yaml',
+                vaultCredentialsId: 'MCR_VAULT_PASSWORD'
+
+                // sh '''
+                //     ansible-playbook -i inventory deployment_playbook.yaml
+                // '''
 
             }
         }
