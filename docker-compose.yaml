@@ -33,7 +33,7 @@ services:
       # DB: "mycleanroom"
       PORT: 12345
       DB_URI: "mongodb+srv://dishang09:5kAI2GcRAQYpWSX8@mcrcluster.ygwhkup.mongodb.net/?retryWrites=true&w=majority"
-    restart: unless-stopped
+
   mcr_frontend:
     image: dishang09/mcr_frontend
     expose:
