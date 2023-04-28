@@ -1,18 +1,5 @@
 version: "3"
 services:
-  # mcrdb:
-  #   image: mysql
-  #   working_dir: /mycleanroom/server
-  #   volumes:
-  #     - dbvol:/var/lib/mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: r00tpassword
-  #     MYSQL_USER: dishang
-  #     MYSQL_PASSWORD: 12345
-  #     MYSQL_DATABASE: mycleanroom
-  #   networks:
-  #     mcr_net:
-  #       ipv4_address: 172.30.1.10
   mcr_backend:
     image: dishang09/mcr_backend
     working_dir: /mycleanroom/backend
@@ -26,11 +13,6 @@ services:
         ipv4_address: 172.30.1.9
     entrypoint: ["npm", "start"]
     environment:
-      # DB_HOST: "mcr_pipeline_mcrdb_1"
-      # DB_PORT: "3306"
-      # DB_USER_NAME: "dishang"
-      # DB_PASSWORD: "12345"
-      # DB: "mycleanroom"
       PORT: 12345
       DB_URI: "mongodb+srv://dishang09:5kAI2GcRAQYpWSX8@mcrcluster.ygwhkup.mongodb.net/?retryWrites=true&w=majority"
 
