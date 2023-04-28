@@ -16,7 +16,7 @@
 
     - name: stop all the services
       docker_compose:
-        # project_src: "/var/lib/jenkins/workspace/mcr_pipeline"
+        project_src: "./"
         state: absent
 
     - name: create all the service, without starting containers
