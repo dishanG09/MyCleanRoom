@@ -4,3 +4,4 @@
 
 #files to be ignored
 .env
+*.keys
