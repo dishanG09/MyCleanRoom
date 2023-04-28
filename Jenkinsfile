@@ -57,6 +57,7 @@ pipeline {
         stage('deploy application'){
             steps{
                 
+                ansiblePlaybook
                 colorized: true,
                 installation: 'Ansible',
                 inventory: 'inventory',
