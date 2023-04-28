@@ -56,13 +56,11 @@ pipeline {
 
         stage('deploy application'){
             steps{
-                
-                ansiblePlaybook
-                colorized: true,
-                installation: 'Ansible',
+
+                ansiblePlaybook(
                 inventory: 'inventory',
                 playbook: 'deployment_playbook.yaml',
-                vaultCredentialsId: 'MCR_VAULT_PASSWORD'
+                vaultCredentialsId: 'MCR_VAULT_PASSWORD')
 
                 // sh '''
                 //     ansible-playbook -i inventory deployment_playbook.yaml
