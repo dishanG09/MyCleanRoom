@@ -1,6 +1,7 @@
 const app = require("./app");
 const logger = require("./config/logger");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const PORT = process.env.PORT || 12345;
 

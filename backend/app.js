@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const api = require("./routes/index");
+const routes = require("./routes/index");
 const db = require("./config/db");
-const unknowEndPoint = require("./middleware/unknowendpoint");
+const handleUnknowEndPoints = require("./middleware/unknowendpoint");
+const globalErrorHandler = require("./middleware/errorHandler");
 
 // create application object
 const app = express();
@@ -12,9 +13,12 @@ db.connectDB();
 
 // setting middlewares
 app.use(cors());
-app.use("/api", api);
+app.use("/api", routes);
 
 // handling unknonw endpoint
-app.use(unknowEndPoint);
+app.use(handleUnknowEndPoints);
+
+//global Error Handler
+app.use(globalErrorHandler);
 
 module.exports = app;

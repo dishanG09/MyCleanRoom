@@ -4,7 +4,7 @@ const logger = require("../../config/logger");
 
 const router = Router();
 
-router.post("/add-user", async (req, res) => {
+router.post("/add-user", async (req, res, next) => {
   try {
     let user = new User({
       name: "Dishang",
@@ -15,20 +15,19 @@ router.post("/add-user", async (req, res) => {
     });
 
     await user.save();
-    res.send("user created successfully");
+    return res.send("user created successfully");
   } catch (e) {
-    logger.error(e);
-    throw new Error(e);
+    next(e);
   }
 });
 
-router.get("/get-users", async (req, res) => {
+router.get("/get-users", async (req, res, next) => {
   try {
+    throw new Error("WILL NOT SEND");
     let users = await User.find({});
-    res.json(users);
+    return res.json(users);
   } catch (e) {
-    logger.error(e);
-    throw new Error(e);
+    next(e);
   }
 });
 

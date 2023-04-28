@@ -4,11 +4,10 @@ const logger = require("../../config/logger");
 
 const router = Router();
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   try {
   } catch (e) {
-    logger.error(e);
-    throw new Error(e);
+    next(e);
   }
 });
 
