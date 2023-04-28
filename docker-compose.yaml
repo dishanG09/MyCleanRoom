@@ -15,12 +15,12 @@ services:
   #       ipv4_address: 172.30.1.10
   mcr_backend:
     image: dishang09/mcr_backend
-    working_dir: /mycleanroom/server
+    working_dir: /mycleanroom/backend
     stdin_open: true
     ports:
       - 13131:12345
     volumes:
-      - appvol:/mycleanroom/server/logs
+      - appvol:/mycleanroom/backend/logs
     networks:
       mcr_net:
         ipv4_address: 172.30.1.9
