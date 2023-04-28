@@ -2,6 +2,7 @@ version: "3"
 services:
   mcr_backend:
     image: dishang09/mcr_backend
+    container_name: mcr_backend
     working_dir: /mycleanroom/backend
     stdin_open: true
     ports:
@@ -18,6 +19,7 @@ services:
 
   mcr_frontend:
     image: dishang09/mcr_frontend
+    container_name: mcr_frontend
     expose:
       - 9090
     ports:

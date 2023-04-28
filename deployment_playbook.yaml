@@ -21,7 +21,7 @@
       command: docker-compose up --no-start
 
     - name: copy env variable file inside backend container
-      command: docker cp .env mcr_pipeline_mcr_backend_1:/mycleanroom/backend
+      command: docker cp .env mcr_backend:/mycleanroom/backend
 
     - name: start the services
       command: docker-compose up -d
