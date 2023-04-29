@@ -10,6 +10,43 @@ const userSchema = new Schema({
   password: { type: Types.String, required: true },
 });
 
-const User = mongoose.model("User", userSchema);
+const supervisorSchema = new Schema(
+  {
+    adminId: { type: Types.String, required: true, unique: true },
+    password: { type: Types.String, required: true },
+    name: { type: Types.String, required: true },
+    gender: { type: Types.String },
+    dob: { type: Types.String, required: true },
+  },
+  { timestamps: true }
+);
 
-module.exports = User;
+const studentSchema = new Schema(
+  {
+    rollNo: { type: Types.String, required: true, unique: true },
+    password: { type: Types.String, required: true },
+    name: { type: Types.String, required: true },
+    gender: { type: Types.String },
+    dob: { type: Types.String, required: true },
+    roomNo: { type: Types.String, required: true, unique: true },
+  },
+  { timestamps: true }
+);
+
+const hkStaffSchema = new Schema(
+  {
+    hkId: { type: Types.String, required: true, unique: true },
+    name: { type: Types.String, required: true },
+    gender: { type: Types.String },
+    dob: { type: Types.String, required: true },
+    supervisorId: { type: Types.String, required: true },
+  },
+  { timestamps: true }
+);
+
+const Student = mongoose.model("Student", studentSchema);
+const Supervisor = mongoose.model("Supervisor", supervisorSchema);
+const User = mongoose.model("User", userSchema);
+const HKStaff = mongoose.model("HKStaff", hkStaffSchema);
+
+module.exports = { Supervisor, User, Student, HKStaff };

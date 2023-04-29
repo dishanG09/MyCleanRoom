@@ -1,5 +1,5 @@
 const Router = require("express").Router;
-const User = require("../user/user.model");
+const { User } = require("../user/user.model");
 const logger = require("../../config/logger");
 
 const router = Router();
