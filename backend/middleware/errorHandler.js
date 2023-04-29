@@ -16,7 +16,7 @@ const globalErrorHandler = (err, req, res, next) => {
 
     case errors.API_NOT_FOUND:
       return res
-        .status(httpStatus.BAD_REQUEST)
+        .status(httpStatus.NOT_FOUND)
         .send(httpStatus[httpStatus.NOT_FOUND]);
 
     default:

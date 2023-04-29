@@ -23,7 +23,6 @@ router.post("/add-user", async (req, res, next) => {
 
 router.get("/get-users", async (req, res, next) => {
   try {
-    throw new Error("WILL NOT SEND");
     let users = await User.find({});
     return res.json(users);
   } catch (e) {
