@@ -6,7 +6,7 @@ const globalErrorHandler = (err, req, res, next) => {
   //  log the error
   logger.error(err.message);
 
-  if (process.env.NODE_ENV !== "test") logger.error(err.stack);
+  // if (process.env.NODE_ENV !== "test") logger.error(err.stack);
 
   switch (err.message) {
     case errors.INTERNAL_SERVER_ERROR:
@@ -18,6 +18,11 @@ const globalErrorHandler = (err, req, res, next) => {
       return res
         .status(httpStatus.NOT_FOUND)
         .send(httpStatus[httpStatus.NOT_FOUND]);
+
+    case errors.BAD_REQUEST:
+      return res
+        .status(httpStatus.BAD_REQUEST)
+        .send(httpStatus[httpStatus.BAD_REQUEST]);
 
     default:
       return res.status(httpStatus.INTERNAL_SERVER_ERROR).send();

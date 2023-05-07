@@ -7,8 +7,8 @@ const feedbackSchema = new Schema(
     hkId: { type: Types.String, required: true },
     student_roll_no: { type: Types.String, required: true },
     student_room_no: { type: Types.String, required: true },
-    rating: { types: Types.Number, required: true, min: 0, max: 5 },
-    remarks: { types: Types.String },
+    rating: { type: Types.Number, required: true, min: 0, max: 5 },
+    remarks: { type: Types.String },
   },
   { timestamps: true }
 );

@@ -1,31 +1,53 @@
 const Router = require("express").Router;
-const { User } = require("../user/user.model");
-const logger = require("../../config/logger");
+const models = require("../user/user.model");
+const { usersValidation } = require("../../middleware/validator");
+const errosmessage = require("../../utils/errosmessage");
 
 const router = Router();
 
-router.post("/add-user", async (req, res, next) => {
+const saveUserData = (data, Model, next) => {
+  return new Promise((resolve, reject) => {
+    let cnt = 0;
+    try {
+      if (data.length === 0) resolve();
+
+      data.forEach(async (d) => {
+        try {
+          await new Model(d).save();
+          cnt++;
+          if (cnt === data.length) resolve();
+        } catch (e) {
+          next(e);
+        }
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+router.post("/add-users/:role", usersValidation, async (req, res, next) => {
+  // expect a list of user, with details in JSON format
+
+  const role = req.params["role"];
+
+  // verify given role is
+
+  // can store password in encrypted form...but will store in plaintext as of now
+  // not required to store in encrypted
+
+  let User;
+
+  if (role === "supervisor") User = models.Supervisor;
+  else if (role === "student") User = models.Student;
+  else if (role === "hkstaff") User = models.HKStaff;
+  else throw new Error(errosmessage.BAD_REQUEST);
+
   try {
-    let user = new User({
-      name: "Dishang",
-      dob: "09/02/200",
-      gender: "M",
-      password: "mypass",
-      username: "dishanG09",
-    });
+    const users = req.body["users"];
+    await saveUserData(users, User, next);
 
-    await user.save();
-
-    return res.send("user created successfully");
-  } catch (e) {
-    next(e);
-  }
-});
-
-router.get("/get-users", async (req, res, next) => {
-  try {
-    let users = await User.find({});
-    return res.json(users);
+    res.json("success");
   } catch (e) {
     next(e);
   }

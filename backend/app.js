@@ -12,7 +12,14 @@ const app = express();
 db.connectDB();
 
 // setting middlewares
+
+// allowing cross origin requests
 app.use(cors());
+
+// json body parser middleware
+app.use(express.json());
+
+// api routes
 app.use("/api", routes);
 
 // handling unknonw endpoint

@@ -40,13 +40,13 @@ const hkStaffSchema = new Schema(
     gender: { type: Types.String },
     dob: { type: Types.String, required: true },
     supId: { type: Types.String, required: true },
+    password: { type: Types.String, default: "null" },
   },
   { timestamps: true }
 );
 
 const Student = mongoose.model("Student", studentSchema);
 const Supervisor = mongoose.model("Supervisor", supervisorSchema);
-const User = mongoose.model("User", userSchema);
 const HKStaff = mongoose.model("HKStaff", hkStaffSchema);
 
-module.exports = { Supervisor, User, Student, HKStaff };
+module.exports = { Supervisor, Student, HKStaff };
