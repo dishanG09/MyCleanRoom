@@ -18,6 +18,7 @@ process.on("SIGINT", async () => {
     logger.info("DB DISCONNECTED");
     server.close();
     logger.info("SERVER STOPPED");
+    process.exit(0);
   } catch (e) {
     logger.error(e);
     process.exit(1);
