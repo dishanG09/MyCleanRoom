@@ -15,6 +15,7 @@ router.post("/add-user", async (req, res, next) => {
     });
 
     await user.save();
+
     return res.send("user created successfully");
   } catch (e) {
     next(e);

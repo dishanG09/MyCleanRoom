@@ -12,7 +12,7 @@ const userSchema = new Schema({
 
 const supervisorSchema = new Schema(
   {
-    adminId: { type: Types.String, required: true, unique: true },
+    supId: { type: Types.String, required: true, unique: true },
     password: { type: Types.String, required: true },
     name: { type: Types.String, required: true },
     gender: { type: Types.String },
@@ -39,7 +39,7 @@ const hkStaffSchema = new Schema(
     name: { type: Types.String, required: true },
     gender: { type: Types.String },
     dob: { type: Types.String, required: true },
-    supervisorId: { type: Types.String, required: true },
+    supId: { type: Types.String, required: true },
   },
   { timestamps: true }
 );
