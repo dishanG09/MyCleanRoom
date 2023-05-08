@@ -2,7 +2,7 @@ const Router = require("express").Router;
 const validateFeedback = require("./feedback.validation");
 const router = Router();
 const Feedback = require("../feedback/feedback.model");
-const { Student } = require("../user/user.model");
+const { Student, HKStaff } = require("../user/user.model");
 const errors = require("../../utils/errosmessage");
 
 router.post("/submit", validateFeedback, async (req, res, next) => {
@@ -19,6 +19,17 @@ router.post("/submit", validateFeedback, async (req, res, next) => {
     });
 
     if (!student) {
+      let err = new Error(errors.BAD_REQUEST);
+      next(err);
+    }
+
+    // verify house keeping staff exists with claimed id
+
+    const claimedHKId = await HKStaff.findOne({
+      hkId: { $eq: feedback["hkId"] },
+    });
+
+    if (!claimedHKId) {
       let err = new Error(errors.BAD_REQUEST);
       next(err);
     }
