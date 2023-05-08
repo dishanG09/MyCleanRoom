@@ -1,2 +1,2 @@
 [prod]
-vm1 ansible_host=172.16.201.120 ansible_connection=ssh ansible_user=prod ansible_sudo_pass=myprod
+vm1 ansible_host=192.168.0.110 ansible_connection=ssh ansible_user=dishang ansible_sudo_pass=9200
