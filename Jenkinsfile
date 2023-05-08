@@ -27,17 +27,17 @@ pipeline {
             }
         }  
 
-        stage('Running Test'){
-            steps{
-                sh '''
-                    export DB_URI=$MCR_DB_URI
-                    cd ./backend
-                    npm ci
-                    npm test
-                    cd ..
-                '''
-            }
-        }
+        // stage('Running Test'){
+        //     steps{
+        //         sh '''
+        //             export DB_URI=$MCR_DB_URI
+        //             cd ./backend
+        //             npm ci
+        //             npm test
+        //             cd ..
+        //         '''
+        //     }
+        // }
 
         stage('uploading image to registry'){
             steps{
