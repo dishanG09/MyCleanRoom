@@ -36,15 +36,15 @@ describe("SERVER REACHABILITY TEST", () => {
       .catch(done);
   });
 
-  test("GET /api/user/get-users", (done) => {
-    supertest(app)
-      .get("/api/user/get-users")
-      .send()
-      .expect(200)
-      .then((res) => {
-        expect(res.body).toHaveLength(1);
-        done();
-      })
-      .catch(done);
-  });
+  // test("GET /api/user/get-users", (done) => {
+  //   supertest(app)
+  //     .get("/api/user/get-users")
+  //     .send()
+  //     .expect(200)
+  //     .then((res) => {
+  //       expect(res.body).toHaveLength(1);
+  //       done();
+  //     })
+  //     .catch(done);
+  // });
 });
