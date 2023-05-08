@@ -20,7 +20,7 @@ router.post("/submit", validateFeedback, async (req, res, next) => {
 
     if (!student) {
       let err = new Error(errors.BAD_REQUEST);
-      next(err);
+      throw err;
     }
 
     // verify house keeping staff exists with claimed id
@@ -31,11 +31,13 @@ router.post("/submit", validateFeedback, async (req, res, next) => {
 
     if (!claimedHKId) {
       let err = new Error(errors.BAD_REQUEST);
-      next(err);
+      throw err;
     }
 
+    // finally save the feedback
     await new Feedback(feedback).save();
-    res.json();
+
+    res.json("ok");
   } catch (e) {
     next(e);
   }

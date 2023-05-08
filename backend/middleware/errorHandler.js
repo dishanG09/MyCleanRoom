@@ -24,6 +24,11 @@ const globalErrorHandler = (err, req, res, next) => {
         .status(httpStatus.BAD_REQUEST)
         .send(httpStatus[httpStatus.BAD_REQUEST]);
 
+    case errors.UNAUTHORIZED:
+      return res
+        .status(httpStatus.UNAUTHORIZED)
+        .send(httpStatus[httpStatus.UNAUTHORIZED]);
+
     default:
       return res.status(httpStatus.INTERNAL_SERVER_ERROR).send();
   }
