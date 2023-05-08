@@ -2,9 +2,9 @@ pipeline {
     
     environment{
         DOCKERHUB = credentials('hub_credentials')
-        MYSQL = credentials('MCR_DB_CRED')
-        MYSQL_ROOT_PASSWORD = credentials('MYSQL_ROOT_PASSWORD')
-        APP_DB = credentials('MYSQL_DB')
+        // MYSQL = credentials('MCR_DB_CRED')
+        // MYSQL_ROOT_PASSWORD = credentials('MYSQL_ROOT_PASSWORD')
+        // APP_DB = credentials('MYSQL_DB')
         PORT = credentials('SERVER_PORT')
         MCR_DB_URI = credentials('MCR_DB_URI')
         MCR_VAULT_PASSWORD = credentials('MCR_VAULT_PASSWORD')
