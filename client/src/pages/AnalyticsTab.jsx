@@ -112,116 +112,134 @@ const AnalyticsTab = () => {
 
   useEffect(() => {
     // fetch Data
+    setTimeout(() => setLoading(false), 2000);
   }, []);
 
   return (
     <div className="analytics-container" style={{}}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
+      {loading ? (
+        <h1
+          style={{
+            textAlign: "center",
+            position: "absolute",
+            top: "30%",
+            left: "52%",
+          }}
+        >
+          Fetching Data...
+        </h1>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
 
-          height: "100vh",
-        }}
-      >
-        <h3
-          style={{ fontSize: "1.5em", textAlign: "center", marginBottom: "0" }}
-        >
-          Today's Analytics
-        </h3>
-        <div
-          className="analytics-card"
-          style={{
-            flex: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
+            height: "100vh",
           }}
         >
-          <Card lable="Total Room Cleaned" value={roomCnt} />
-          <Card lable="Max Rating" value={maxRating} />
-          <Card lable="Min Rating" value={minRating} />
-          <Card lable="Average Rating" value={(minRating + maxRating) / 2} />
-        </div>
-        <div
-          className="analytics-chart"
-          style={{
-            backgroundColor: "",
-            flex: 4,
-            display: "flex",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <div
+          <h3
             style={{
-              width: "40%",
-              height: "80%",
-              backgroundColor: "white",
-              borderRadius: "10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "2%",
-              flexDirection: "column",
-              boxShadow: "1.5px 1.56px 3px 1px rgba(0,0,0,0.25)",
+              fontSize: "1.5em",
+              textAlign: "center",
+              marginBottom: "0",
             }}
           >
-            <Pie
-              data={{
-                labels: [
-                  "0 star",
-                  "1 star",
-                  "2 star",
-                  "3 star",
-                  "4 star",
-                  "5 star",
-                ],
-                datasets: [
-                  {
-                    label: "#feedbacks",
-                    data: totalCnt,
-                    backgroundColor: [
-                      "rgba(210,50,64,0.4)",
-                      "rgba(255,0,0,0.5)",
-                      "rgba(0,255,0,0.5)",
-                      "rgba(0,0,255,0.5)",
-                      "rgba(255,255,0,0.5)",
-                      "rgba(215,150,240,0.5)",
-                    ],
-                  },
-                ],
-              }}
-              options={{
-                plugins: {
-                  title: {
-                    display: true,
-                  },
-                },
-              }}
-            />
-            <p style={{ margin: 0, textAlign: "center" }}>
-              Rating wise total count
-            </p>
-          </div>
+            Today's Analytics
+          </h3>
           <div
+            className="analytics-card"
             style={{
-              width: "40%",
-              height: "80%",
-              backgroundColor: "white",
-              borderRadius: "10px",
+              flex: 2,
               display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
               alignItems: "center",
-              padding: "2%",
-              boxShadow: "1.5px 1.56px 3px 1px rgba(0,0,0,0.25)",
+              justifyContent: "space-evenly",
             }}
           >
-            <Line options={options} data={data} />
-            <p>Yearly Average Ratings</p>
+            <Card lable="Total Room Cleaned" value={roomCnt} />
+            <Card lable="Max Rating" value={maxRating} />
+            <Card lable="Min Rating" value={minRating} />
+            <Card lable="Average Rating" value={(minRating + maxRating) / 2} />
+          </div>
+          <div
+            className="analytics-chart"
+            style={{
+              backgroundColor: "",
+              flex: 4,
+              display: "flex",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <div
+              style={{
+                width: "40%",
+                height: "80%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "2%",
+                flexDirection: "column",
+                boxShadow: "1.5px 1.56px 3px 1px rgba(0,0,0,0.25)",
+              }}
+            >
+              <Pie
+                data={{
+                  labels: [
+                    "0 star",
+                    "1 star",
+                    "2 star",
+                    "3 star",
+                    "4 star",
+                    "5 star",
+                  ],
+                  datasets: [
+                    {
+                      label: "#feedbacks",
+                      data: totalCnt,
+                      backgroundColor: [
+                        "rgba(210,50,64,0.4)",
+                        "rgba(255,0,0,0.5)",
+                        "rgba(0,255,0,0.5)",
+                        "rgba(0,0,255,0.5)",
+                        "rgba(255,255,0,0.5)",
+                        "rgba(215,150,240,0.5)",
+                      ],
+                    },
+                  ],
+                }}
+                options={{
+                  plugins: {
+                    title: {
+                      display: true,
+                    },
+                  },
+                }}
+              />
+              <p style={{ margin: 0, textAlign: "center" }}>
+                Rating wise total count
+              </p>
+            </div>
+            <div
+              style={{
+                width: "40%",
+                height: "80%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+                padding: "2%",
+                boxShadow: "1.5px 1.56px 3px 1px rgba(0,0,0,0.25)",
+              }}
+            >
+              <Line options={options} data={data} />
+              <p>Yearly Average Ratings</p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
