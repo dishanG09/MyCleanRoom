@@ -65,8 +65,8 @@ const data = {
     {
       label: `Average Ratings Year - ${new Date().getFullYear()}`,
       data: [1, 2, 3, 2, 5, 0, 0, 0, 0, 0, 0, 0],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      borderColor: "rgba(155, 0, 255,0.75)",
+      backgroundColor: "rgba(155, 0, 255,0.2)",
     },
   ],
 };
@@ -91,13 +91,13 @@ const Card = ({ lable, value }) => {
         style={{
           textAlign: "center",
           fontWeight: "bold",
-          fontSize: "1.25rem",
+          fontSize: "1.5vw",
           margin: 0,
         }}
       >
         {lable}
       </p>
-      <p style={{ margin: 0, marginTop: "5px", fontSize: "2rem" }}>{value}</p>
+      <p style={{ margin: 0, marginTop: "5px", fontSize: "3vw" }}>{value}</p>
     </div>
   );
 };
@@ -216,8 +216,8 @@ const AnalyticsTab = () => {
                   },
                 }}
               />
-              <p style={{ margin: 0, textAlign: "center" }}>
-                Rating wise total count
+              <p style={{ margin: 0, padding: "2%", textAlign: "center" }}>
+                Today's Rating wise total count
               </p>
             </div>
             <div
@@ -235,7 +235,7 @@ const AnalyticsTab = () => {
               }}
             >
               <Line options={options} data={data} />
-              <p>Yearly Average Ratings</p>
+              <p>Monthly Average Ratings</p>
             </div>
           </div>
         </div>

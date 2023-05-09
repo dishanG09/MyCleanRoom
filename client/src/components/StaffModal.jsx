@@ -1,0 +1,118 @@
+import React, { useEffect, useState } from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  ArcElement,
+  Legend,
+} from "chart.js";
+import { Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const StaffModal = ({ modalHandler }) => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "10%",
+        left: "25%",
+        width: "50vw",
+        height: "80vh",
+        backgroundColor: "white",
+        borderRadius: "10px",
+      }}
+    >
+      <p
+        style={{
+          display: "inline-block",
+          margin: 0,
+          marginLeft: "37%",
+          marginTop: "10px",
+          fontSize: "1.5em",
+        }}
+      >
+        Individual Rating
+      </p>
+      <p
+        style={{
+          display: "inline",
+          marginTop: "10px",
+          marginRight: "25px",
+          cursor: "pointer",
+          fontSize: "2rem",
+          float: "right",
+          fontWeight: "bold",
+        }}
+        onClick={(e) => modalHandler(false)}
+      >
+        &times;
+      </p>
+      <div
+        style={{
+          width: "40%",
+          height: "80%",
+          backgroundColor: "",
+          borderRadius: "10px",
+          display: "flex",
+          justifyContent: "center",
+          padding: "2%",
+          flexDirection: "column",
+          marginLeft: "25%",
+        }}
+      >
+        <Pie
+          data={{
+            labels: [
+              "0 star",
+              "1 star",
+              "2 star",
+              "3 star",
+              "4 star",
+              "5 star",
+            ],
+            datasets: [
+              {
+                label: "#feedbacks",
+                data: [1, 2, 3, 4, 5, 6],
+                backgroundColor: [
+                  "rgba(210,50,64,0.4)",
+                  "rgba(255,0,0,0.5)",
+                  "rgba(0,255,0,0.5)",
+                  "rgba(0,0,255,0.5)",
+                  "rgba(255,255,0,0.5)",
+                  "rgba(215,150,240,0.5)",
+                ],
+              },
+            ],
+          }}
+          options={{
+            plugins: {
+              title: {
+                display: true,
+              },
+            },
+          }}
+        />
+        <p style={{ margin: 0, padding: "2%", textAlign: "center" }}>
+          Overall work rating distribution
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default StaffModal;
