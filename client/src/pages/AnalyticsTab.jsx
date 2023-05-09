@@ -109,13 +109,60 @@ const AnalyticsTab = () => {
   const [maxRating, setMaxRating] = useState(5);
   const [minRating, setMinRating] = useState(0);
   const [roomCnt, setRoomCnt] = useState(11);
-  const [totalCnt, setTotalCnt] = useState([6, 10, 30, 20, 11, 3]);
+  const [avgRating, setAvgRating] = useState(0);
+  const [pieChartData, setPieChartData] = useState([0, 0, 0, 0, 0, 0]);
 
   const [lineChartData, setLineChartData] = useState(data);
 
+  const updateAnalytics = () => {
+    fetch(baseURL + "/api/feedback/get-feedback/for-today", {
+      method: "GET",
+      headers: {
+        token: localStorage.getItem("token"),
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) return res.json();
+
+        throw res;
+      })
+      .then((resdata) => {
+        let mnRating = 10;
+        let mxRating = 0;
+        let sum = 0;
+        let cnt = resdata.length;
+
+        let tmpPieChartData = [0, 0, 0, 0, 0, 0];
+
+        resdata.forEach(({ rating }) => {
+          mxRating = Math.max(mxRating, rating);
+          mnRating = Math.min(mnRating, rating);
+          sum += rating;
+          tmpPieChartData[rating]++;
+        });
+
+        setMaxRating(mxRating);
+        setMinRating(mnRating);
+        setRoomCnt(cnt);
+        cnt > 0 && setAvgRating(sum / cnt);
+        setPieChartData(tmpPieChartData);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
-    // fetch Data
-    setTimeout(() => setLoading(false), 2000);
+    updateAnalytics();
+  }, []);
+
+  useEffect(() => {
+    // fetch updated data every 10 min
+    const timerId = setInterval(updateAnalytics, 10 * 60 * 1000);
+    return () => {
+      clearInterval(timerId);
+    };
   }, []);
 
   useEffect(() => {
@@ -189,7 +236,7 @@ const AnalyticsTab = () => {
             <Card lable="Total Room Cleaned" value={roomCnt} />
             <Card lable="Max Rating" value={maxRating} />
             <Card lable="Min Rating" value={minRating} />
-            <Card lable="Average Rating" value={(minRating + maxRating) / 2} />
+            <Card lable="Average Rating" value={avgRating.toPrecision(2)} />
           </div>
           <div
             className="analytics-chart"
@@ -227,7 +274,7 @@ const AnalyticsTab = () => {
                   datasets: [
                     {
                       label: "#feedbacks",
-                      data: totalCnt,
+                      data: pieChartData,
                       backgroundColor: [
                         "rgba(210,50,64,0.4)",
                         "rgba(255,0,0,0.5)",

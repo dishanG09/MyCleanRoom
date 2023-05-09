@@ -54,7 +54,7 @@ router.get("/get-feedback/for-today", extractToken, async (req, res, next) => {
     // verify request is coming from valid supervisor
 
     const supervisor = await Supervisor.findOne({
-      _id: { $eq: req.params["id"] },
+      _id: { $eq: req.headers["id"] },
     });
 
     if (!supervisor) throw new Error(errors.BAD_REQUEST);
@@ -114,18 +114,19 @@ router.get("/get-feedback/:id", extractToken, async (req, res, next) => {
     if (new RegExp("^HK[0-9]{4}$").test(id) === false)
       throw new Error(errors.BAD_REQUEST);
 
-    const feedbacks = await Feedback.find(
-      { hkId: { $eq: id } },
+    const feedbacks = await Feedback.aggregate([
       {
-        rating: 1,
-        hkId: 1,
-        remarks: 1,
-        createdAt: 1,
-        student_roll_no: 1,
-        student_room_no: 1,
-        _id: 0,
-      }
-    );
+        $match: {
+          hkId: { $eq: id },
+        },
+      },
+      {
+        $group: {
+          _id: "$rating",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
 
     res.json({ feedbacks });
   } catch (e) {

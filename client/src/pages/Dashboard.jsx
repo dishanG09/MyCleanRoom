@@ -25,7 +25,7 @@ const Dashboard = () => {
             backgroundColor: "rgba(0,0,0,0.5)",
           }}
         >
-          <StaffModal modalHandler={setShowModal} />
+          <StaffModal data={modalData} modalHandler={setShowModal} />
         </div>
       )}
       <div

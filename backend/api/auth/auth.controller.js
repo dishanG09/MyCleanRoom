@@ -27,6 +27,8 @@ const router = Router();
 
 router.post("/login/:role", async (req, res, next) => {
   try {
+    console.log("request came");
+
     const { username, password } = req.body;
     const { role } = req.params;
 

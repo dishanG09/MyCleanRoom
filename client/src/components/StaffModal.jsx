@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import { baseURL } from "../constant";
 
 ChartJS.register(
   ArcElement,
@@ -23,7 +24,30 @@ ChartJS.register(
   Legend
 );
 
-const StaffModal = ({ modalHandler }) => {
+const StaffModal = ({ data, modalHandler }) => {
+  const [chartData, setChartData] = useState([0, 0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    fetch(baseURL + "/api/feedback/get-feedback/" + data["hkId"], {
+      method: "GET",
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        modalHandler(false);
+        throw res;
+      })
+      .then(({ feedbacks }) => {
+        let tmp = [0, 0, 0, 0, 0, 0];
+        feedbacks.forEach((point) => {
+          tmp[parseInt(point["_id"])] = point["count"];
+        });
+        setChartData(tmp);
+      });
+  }, []);
+
   return (
     <div
       style={{
@@ -87,7 +111,7 @@ const StaffModal = ({ modalHandler }) => {
             datasets: [
               {
                 label: "#feedbacks",
-                data: [1, 2, 3, 4, 5, 6],
+                data: chartData,
                 backgroundColor: [
                   "rgba(210,50,64,0.4)",
                   "rgba(255,0,0,0.5)",
@@ -108,7 +132,7 @@ const StaffModal = ({ modalHandler }) => {
           }}
         />
         <p style={{ margin: 0, padding: "2%", textAlign: "center" }}>
-          Overall work rating distribution
+          Overall rating wise feedback distribution
         </p>
       </div>
     </div>
