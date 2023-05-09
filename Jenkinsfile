@@ -14,43 +14,31 @@ pipeline {
 
     stages {
 
-//         stage('cloning repo') {
-//             steps {
-//                 git 'git@github.com:dishanG09/MyCleanRoom.git'
-//             }
-//         }
-        
+
         stage('building project images'){
             steps{
-                //sh 'docker rmi $(docker images --format "{{.Repository}} {{.ID}}" | grep dishang* | awk -F\' \' \'{print $2}\')'
-                sh 'docker build -t dishang09/mcr_backend ./backend'
+               
+                sh '''
+                    docker build -t dishang09/mcr_backend ./backend
+                    docker build -t dishang09/mcr_frontend ./client
+                '''
             }
         }  
 
-        // stage('Running Test'){
-        //     steps{
-        //         sh '''
-        //             export DB_URI=$MCR_DB_URI
-        //             cd ./backend
-        //             npm ci
-        //             npm test
-        //             cd ..
-        //         '''
-        //     }
-        // }
 
         stage('uploading image to registry'){
             steps{
                 sh '''
                         docker login -u $DOCKERHUB_USR -p $DOCKERHUB_PSW
                         docker push dishang09/mcr_backend
+                        docker push dishang09/mcr_frontend
                     '''
             }
         }
 
         stage('cleaning local images'){
             steps{
-                sh 'docker image prune --force --all'
+                sh 'docker rmi dishang09/mcr_backend dishang09/mcr_frontend'
             }
         }
 
@@ -61,11 +49,6 @@ pipeline {
                 inventory: 'inventory',
                 playbook: 'deployment_playbook.yaml',
                 vaultCredentialsId: 'MCR_VAULT_PASSWORD')
-
-                // sh '''
-                //     ansible-playbook -i inventory deployment_playbook.yaml
-                // '''
-
             }
         }
     }
