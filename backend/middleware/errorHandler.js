@@ -29,6 +29,11 @@ const globalErrorHandler = (err, req, res, next) => {
         .status(httpStatus.UNAUTHORIZED)
         .send(httpStatus[httpStatus.UNAUTHORIZED]);
 
+    case errors.FORBIDDEN:
+      return res
+        .status(httpStatus.FORBIDDEN)
+        .send(httpStatus[httpStatus.FORBIDDEN]);
+
     default:
       return res.status(httpStatus.INTERNAL_SERVER_ERROR).send();
   }

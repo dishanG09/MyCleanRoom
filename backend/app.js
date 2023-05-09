@@ -14,7 +14,7 @@ db.connectDB();
 // setting middlewares
 
 // allowing cross origin requests
-app.use(cors());
+app.use(cors({ exposedHeaders: ["token"] }));
 
 // json body parser middleware
 app.use(express.json());
