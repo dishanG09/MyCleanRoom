@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Pie, Line } from "react-chartjs-2";
+import { baseURL } from "../constant";
 
 ChartJS.register(
   ArcElement,
@@ -38,7 +39,7 @@ const options = {
     y: {
       min: 0,
       max: 5,
-      stepSize: 0.5,
+      stepSize: 0.25,
     },
     x: {},
   },
@@ -110,9 +111,39 @@ const AnalyticsTab = () => {
   const [roomCnt, setRoomCnt] = useState(11);
   const [totalCnt, setTotalCnt] = useState([6, 10, 30, 20, 11, 3]);
 
+  const [lineChartData, setLineChartData] = useState(data);
+
   useEffect(() => {
     // fetch Data
     setTimeout(() => setLoading(false), 2000);
+  }, []);
+
+  useEffect(() => {
+    fetch(baseURL + "/api/feedback/get-feedback/group-monthwise", {
+      method: "GET",
+      headers: {
+        token: localStorage.getItem("token"),
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) return res.json();
+        throw res;
+      })
+      .then((res) => {
+        const ratings = new Array(12).fill(0, 0, 11);
+
+        res.forEach((point) => {
+          ratings[parseInt(point["_id"]) - 1] = point["avg_rating"];
+        });
+
+        let tmp = lineChartData;
+
+        tmp["datasets"][0]["data"] = ratings;
+
+        setLineChartData(tmp);
+      })
+      .catch((e) => {});
   }, []);
 
   return (
