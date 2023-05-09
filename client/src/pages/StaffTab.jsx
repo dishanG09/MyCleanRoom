@@ -42,7 +42,6 @@ const StaffCard = ({ data, modalDataHandler, modalHandler }) => {
 };
 
 const StaffTab = ({ modalDataHandler, modalHandler }) => {
-  const [loading, setLoading] = useState(true);
   const [hkStaff, setHKStaff] = useState([]);
 
   useEffect(() => {
@@ -79,9 +78,7 @@ const StaffTab = ({ modalDataHandler, modalHandler }) => {
         setHKStaff(tmp);
       })
       .catch((e) => console.error(e))
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => {});
   }, []);
 
   return (
