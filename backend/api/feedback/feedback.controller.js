@@ -106,4 +106,30 @@ router.get(
     }
   }
 );
+
+router.get("/get-feedback/:id", extractToken, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (new RegExp("^HK[0-9]{4}$").test(id) === false)
+      throw new Error(errors.BAD_REQUEST);
+
+    const feedbacks = await Feedback.find(
+      { hkId: { $eq: id } },
+      {
+        rating: 1,
+        hkId: 1,
+        remarks: 1,
+        createdAt: 1,
+        student_roll_no: 1,
+        student_room_no: 1,
+        _id: 0,
+      }
+    );
+
+    res.json({ feedbacks });
+  } catch (e) {
+    next(e);
+  }
+});
 module.exports = router;
