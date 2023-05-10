@@ -30,7 +30,9 @@ pipeline {
             steps{
                 
                 sh '''
+
                     cd ./backend
+                    npm ci
                     npm test
                     cd ..
                 '''
