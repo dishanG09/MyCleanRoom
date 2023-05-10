@@ -26,7 +26,7 @@ pipeline {
         }  
         stage('stopping containers'){
             
-            stpes{
+            steps{
 
                     sh '''
                         docker stop mcr_backend mcr_frontend
