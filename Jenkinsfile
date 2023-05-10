@@ -42,7 +42,7 @@ pipeline {
                 sh '''
                     cd ./backend
                     npm ci
-                    export DB_URI=$DB_URI
+                    export DB_URI=$MCR_DB_URI
                     export PORT=$PORT
                     export JWT_KEY=$JWT_KEY
                     npm test
