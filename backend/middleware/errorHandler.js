@@ -3,10 +3,7 @@ const errors = require("../utils/errosmessage");
 const logger = require("../config/logger");
 
 const globalErrorHandler = (err, req, res, next) => {
-  //  log the error
-  logger.error(err.message);
-
-  // if (process.env.NODE_ENV !== "test") logger.error(err.stack);
+  console.log(err.message);
 
   switch (err.message) {
     case errors.INTERNAL_SERVER_ERROR:

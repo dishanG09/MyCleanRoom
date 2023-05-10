@@ -4,6 +4,7 @@ const routes = require("./routes/index");
 const db = require("./config/db");
 const handleUnknowEndPoints = require("./middleware/unknowendpoint");
 const globalErrorHandler = require("./middleware/errorHandler");
+const logger = require("./config/logger");
 
 // create application object
 const app = express();
@@ -18,6 +19,27 @@ app.use(cors({ exposedHeaders: ["token"] }));
 
 // json body parser middleware
 app.use(express.json());
+
+// log the request
+
+app.use((req, res, next) => {
+  res.on("finish", () => {
+    logger.info(
+      "[method:" +
+        req.method +
+        "][url:" +
+        req["originalUrl"] +
+        "][ip:" +
+        req.ip +
+        "][status:" +
+        res.statusCode +
+        "][size:" +
+        res.getHeaders()["content-length"] +
+        "]"
+    );
+  });
+  next();
+});
 
 // api routes
 app.use("/api", routes);

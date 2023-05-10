@@ -7,20 +7,20 @@ const PORT = process.env.PORT || 12345;
 
 const server = app.listen(PORT, (err) => {
   if (err) {
-    logger.error(err);
+    console.log(err);
   }
-  logger.info(`SERVER STARTED ON PORT ${PORT}`);
+  console.log(`SERVER STARTED ON PORT ${PORT}`);
 });
 
 process.on("SIGINT", async () => {
   try {
     await mongoose.disconnect();
-    logger.info("DB DISCONNECTED");
+    console.log("DB DISCONNECTED");
     server.close();
-    logger.info("SERVER STOPPED");
+    console.log("SERVER STOPPED");
     process.exit(0);
   } catch (e) {
-    logger.error(e);
+    console.log(e);
     process.exit(1);
   }
 });

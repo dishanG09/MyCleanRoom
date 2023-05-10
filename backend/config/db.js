@@ -7,13 +7,13 @@ const connectDB = async () => {
   try {
     mongoose.connection.on("disconnected", (err, _) => {
       if (err) {
-        logger.error(err.message);
+        console.log(err.message);
         throw new Error(err);
       }
     });
 
     mongoose.connection.on("error", (err, _) => {
-      logger.error(err.message);
+      console.log(err.message);
       throw new Error(err);
     });
 
@@ -22,9 +22,9 @@ const connectDB = async () => {
       dbName: "mcrDB",
     });
 
-    logger.info("DB CONNECTION ESTABLISHED");
+    console.log("DB CONNECTION ESTABLISHED");
   } catch (e) {
-    logger.error(e.message);
+    console.log(e.message);
     throw new Error(e.message);
   }
 };

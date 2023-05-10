@@ -10,7 +10,7 @@ const logger = createLogger({
   format: combine(timestamp(), myFormat),
   transports: [
     new transports.File({ filename: "./logs/server.log" }),
-    new transports.Console(),
+    // new transports.Console(),
   ],
   exitOnError: false,
 });
