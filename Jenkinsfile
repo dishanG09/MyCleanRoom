@@ -2,6 +2,7 @@ pipeline {
     
     environment{
         DOCKERHUB = credentials('hub_credentials')
+        JWT_KEY = credentials('JET_KEY')
         // MYSQL = credentials('MCR_DB_CRED')
         // MYSQL_ROOT_PASSWORD = credentials('MYSQL_ROOT_PASSWORD')
         // APP_DB = credentials('MYSQL_DB')
@@ -39,9 +40,11 @@ pipeline {
             steps{
                 
                 sh '''
-
                     cd ./backend
                     npm ci
+                    export DB_URT=$DB_URI
+                    export PORT=$PORT
+                    export JWT_KEY=$JWT_KEY
                     npm test
                     cd ..
                 '''
