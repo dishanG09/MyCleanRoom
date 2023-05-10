@@ -41,10 +41,11 @@ pipeline {
                 
                 sh '''
                     cd ./backend
-                    npm ci
+                    export NODE_ENV=TEST
                     export DB_URI=$MCR_DB_URI
                     export PORT=$PORT
                     export JWT_KEY=$JWT_KEY
+                    npm ci
                     npm test
                     cd ..
                 '''
