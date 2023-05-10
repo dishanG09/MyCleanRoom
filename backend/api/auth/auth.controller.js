@@ -46,7 +46,7 @@ router.post("/login/:role", async (req, res, next) => {
 
     // jwt pending
 
-    const token = generateToken({ id: User._id });
+    const token = generateToken({ id: User._id, role });
 
     res.json({ token, data: getUser(User, role) });
   } catch (e) {
