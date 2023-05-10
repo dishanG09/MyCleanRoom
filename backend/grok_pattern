@@ -1,0 +1,1 @@
+%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:log.level}: \[.*?:.*?\]\[.*?:%{PATH:api_endpoint}\]\[.*?:::%{BASE16NUM:ipaddress_v6}:%{IP:ipaddress_v4}\]\[.*?:%{INT:res_status}\]
