@@ -30,8 +30,9 @@ const Homepage = () => {
         throw res;
       })
       .then((data) => {
-        const { token } = data;
+        const { token, data: user } = data;
         localStorage.setItem("token", token);
+        localStorage.setItem("username", user["name"]);
         navigation(routes.DASHBOARD, { replace: true });
       })
       .catch((err) => {

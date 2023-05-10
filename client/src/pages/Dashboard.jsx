@@ -12,6 +12,10 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
 
+  const username = localStorage.getItem("username")
+    ? localStorage.getItem("username")
+    : "John";
+
   return (
     <div
       className="dashboard-container"
@@ -43,7 +47,7 @@ const Dashboard = () => {
           flexDirection: "column",
         }}
       >
-        <h2>Welcome Dishang</h2>
+        <h2>{"Welcome " + username}</h2>
         <p
           style={{
             backgroundColor: tab === "HOME" ? "rgba(255,255,255,0.8)" : "",
