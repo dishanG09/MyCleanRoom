@@ -9,7 +9,7 @@ const myFormat = printf(({ level, message, timestamp }) => {
 const logger = createLogger({
   format: combine(timestamp(), myFormat),
   transports: [
-    new transports.File({ filename: "./logs/server.log" }),
+    new transports.File({ filename: "./logs/api.log" }),
     // new transports.Console(),
   ],
   exitOnError: false,
