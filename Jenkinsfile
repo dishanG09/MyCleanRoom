@@ -24,7 +24,16 @@ pipeline {
                 '''
             }
         }  
+        stage('stopping containers'){
+            
+            stpes{
 
+                    sh '''
+                        docker stop mcr_backend mcr_frontend
+                    '''
+            }
+
+        }
         stage('testing application'){
 
             steps{
