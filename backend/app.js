@@ -33,8 +33,6 @@ app.use((req, res, next) => {
         req.ip +
         "][status:" +
         res.statusCode +
-        "][size:" +
-        res.getHeaders()["content-length"] +
         "]"
     );
   });
