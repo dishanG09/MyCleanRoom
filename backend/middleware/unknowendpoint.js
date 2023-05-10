@@ -3,9 +3,10 @@ const errors = require("../utils/errosmessage");
 
 const unknowEndPoint = (req, res, next) => {
   try {
-    // console.log(
-    //   `Unknown Endpoint hit [ IP : ${req.ip} ][ URL : ${req["originalUrl"]} ][ USER_AGENT : ${req.headers["user-agent"]} ]`
-    // );
+    process.env.NODE_ENV !== "TEST" &&
+      console.log(
+        `Unknown Endpoint hit [ IP : ${req.ip} ][ URL : ${req["originalUrl"]} ][ USER_AGENT : ${req.headers["user-agent"]} ]`
+      );
     next(new Error(errors.API_NOT_FOUND));
   } catch (e) {
     next(new Error(errors.INTERNAL_SERVER_ERROR, { cause: e }));
