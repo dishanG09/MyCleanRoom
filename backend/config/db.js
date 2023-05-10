@@ -22,7 +22,7 @@ const connectDB = async () => {
       dbName: "mcrDB",
     });
 
-    console.log("DB CONNECTION ESTABLISHED");
+    // console.log("DB CONNECTION ESTABLISHED");
   } catch (e) {
     console.log(e.message);
     throw new Error(e.message);

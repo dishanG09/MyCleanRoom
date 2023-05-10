@@ -31,7 +31,7 @@ beforeEach(() => {
 afterAll(async () => {
   // delete users that we created for testing purpose
   await Student.deleteOne({ rollNo: { $eq: student.rollNo } });
-  // await mongoose.connection.close();
+  await mongoose.connection.close();
   server.close();
 });
 

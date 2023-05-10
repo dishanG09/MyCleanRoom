@@ -9,7 +9,7 @@ beforeEach(() => {
 });
 
 afterAll(async () => {
-  // await mongoose.connection.close();
+  await mongoose.connection.close();
   server.close();
 });
 

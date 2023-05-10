@@ -25,6 +25,20 @@ pipeline {
             }
         }  
 
+        stage('testing application'){
+
+            steps{
+                
+                sh '''
+                    cd ./backend
+                    npm test
+                    cd ..
+                '''
+
+            }
+
+        }
+
 
         stage('uploading image to registry'){
             steps{
