@@ -128,4 +128,31 @@ router.get(
   }
 );
 
+router.post("/submit-new-password", extractToken, async (req, res, next) => {
+  try {
+    const { newpassword, username } = req.body;
+
+    if (!newpassword || !username || username === "" || newpassword === "")
+      throw new Error(errosmessage.BAD_REQUEST);
+
+    const student = await models.Student.findOne({ rollNo: { $eq: username } });
+
+    if (
+      !student ||
+      !student.reset_password_flag ||
+      student.reset_password_flag === false
+    )
+      throw new Error(errosmessage.BAD_REQUEST);
+
+    await models.Student.findOneAndUpdate(
+      { rollNo: { $eq: username } },
+      { $set: { password: newpassword, reset_password_flag: false } }
+    );
+
+    res.json("ok");
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;
