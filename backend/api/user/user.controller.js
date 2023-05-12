@@ -84,4 +84,48 @@ router.get("/get-users/hkstaff", extractToken, async (req, res, next) => {
   }
 });
 
+router.post("/password-reset/:role", async (req, res, next) => {
+  try {
+    const { username } = req.body;
+    const { role } = req.params;
+
+    if (!username || !role || role !== "student")
+      throw new Error(errosmessage.BAD_REQUEST);
+
+    const student = await models.Student.findOne({ rollNo: { $eq: username } });
+
+    if (!student) throw new Error(errosmessage.BAD_REQUEST);
+
+    await models.Student.findOneAndUpdate(
+      { rollNo: { $eq: username } },
+      { $set: { reset_password_flag: true } }
+    );
+
+    res.json({
+      message: "password reset request registered...visit system admin",
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get(
+  "/password-reset-request-list",
+  extractToken,
+  async (req, res, next) => {
+    try {
+      const list = await models.Student.find(
+        {
+          reset_password_flag: { $eq: true },
+        },
+        { name: 1, rollNo: 1, roomNo: 1, dob: 1, gender: 1, _id: 0 }
+      );
+
+      res.json({ requests: list });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 module.exports = router;

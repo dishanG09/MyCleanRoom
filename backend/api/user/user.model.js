@@ -29,6 +29,7 @@ const studentSchema = new Schema(
     gender: { type: Types.String },
     dob: { type: Types.String, required: true },
     roomNo: { type: Types.String, required: true, unique: true },
+    reset_password_flag: { type: Types.Boolean, default: false },
   },
   { timestamps: true }
 );
