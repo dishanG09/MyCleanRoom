@@ -4,6 +4,7 @@ import StaffTab from "./StaffTab";
 import StaffModal from "../components/StaffModal";
 import { useNavigate } from "react-router-dom";
 import routes from "../routes/routes";
+import PasswordResetPage from "./PasswordResetPage";
 
 const NavItem = ({ label, tab, tabHandler }) => {
   return (
@@ -39,7 +40,7 @@ const Dashboard = () => {
       return (
         <StaffTab modalHandler={setShowModal} modalDataHandler={setModalData} />
       );
-    }
+    } else if (tab === "RESET STUDENT PASSWORDS") return <PasswordResetPage />;
   };
 
   const username = localStorage.getItem("username")
@@ -84,6 +85,11 @@ const Dashboard = () => {
           tab={tab}
           tabHandler={(e) => setTab("STAFF")}
           label={"Staff"}
+        />
+        <NavItem
+          tab={tab}
+          label={"Reset Student Passwords"}
+          tabHandler={(e) => setTab("RESET STUDENT PASSWORDS")}
         />
         <NavItem
           tab={tab}
