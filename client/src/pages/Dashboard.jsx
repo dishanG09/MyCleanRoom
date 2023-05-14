@@ -5,12 +5,42 @@ import StaffModal from "../components/StaffModal";
 import { useNavigate } from "react-router-dom";
 import routes from "../routes/routes";
 
+const NavItem = ({ label, tab, tabHandler }) => {
+  return (
+    <p
+      style={{
+        backgroundColor:
+          label.toLocaleUpperCase() === tab ? "rgba(255,255,255,0.8)" : "",
+        borderRadius: "6px",
+
+        width: "90%",
+        textAlign: "center",
+        padding: "3%",
+        margin: "0",
+        cursor: "pointer",
+      }}
+      onClick={tabHandler}
+    >
+      {label}
+    </p>
+  );
+};
+
 const Dashboard = () => {
   const navigator = useNavigate();
 
   const [tab, setTab] = useState("HOME");
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+
+  const renderComponent = (tab) => {
+    if (tab === "HOME") return <AnalyticsTab />;
+    else if (tab === "STAFF") {
+      return (
+        <StaffTab modalHandler={setShowModal} modalDataHandler={setModalData} />
+      );
+    }
+  };
 
   const username = localStorage.getItem("username")
     ? localStorage.getItem("username")
@@ -45,65 +75,27 @@ const Dashboard = () => {
           flexWrap: "nowrap",
           display: "flex",
           flexDirection: "column",
+          boxShadow: "0.5px 0px 5px 0.15px rgba(0,0,0,0.5)",
         }}
       >
         <h2>{"Welcome " + username}</h2>
-        <p
-          style={{
-            backgroundColor: tab === "HOME" ? "rgba(255,255,255,0.8)" : "",
-            borderRadius: "6px",
-
-            width: "90%",
-            textAlign: "center",
-            padding: "3%",
-            margin: "0",
-            cursor: "pointer",
-          }}
-          onClick={(e) => setTab("HOME")}
-        >
-          Home
-        </p>
-        <p
-          style={{
-            margin: 0,
-            backgroundColor: tab === "STAFF" ? "rgba(255,255,255,0.750)" : "",
-            borderRadius: "6px",
-            width: "90%",
-            textAlign: "center",
-            padding: "3%",
-            cursor: "pointer",
-          }}
-          onClick={(e) => setTab("STAFF")}
-        >
-          Staff
-        </p>
-        <p
-          style={{
-            margin: 0,
-            backgroundColor: tab === "LOGOUT" ? "rgba(255,255,255,0.750)" : "",
-            borderRadius: "6px",
-            width: "90%",
-            textAlign: "center",
-            padding: "3%",
-            cursor: "pointer",
-          }}
-          onClick={(e) => {
+        <NavItem tab={tab} tabHandler={(e) => setTab("HOME")} label={"Home"} />
+        <NavItem
+          tab={tab}
+          tabHandler={(e) => setTab("STAFF")}
+          label={"Staff"}
+        />
+        <NavItem
+          tab={tab}
+          label={"Logout"}
+          tabHandler={(e) => {
             localStorage.removeItem("token");
             navigator(routes.HOME_PAGE, { replace: true });
           }}
-        >
-          Logout
-        </p>
+        />
       </div>
       <div style={{ flex: 4, height: "100vh", overflowY: "auto" }}>
-        {tab === "HOME" ? (
-          <AnalyticsTab />
-        ) : (
-          <StaffTab
-            modalHandler={setShowModal}
-            modalDataHandler={setModalData}
-          />
-        )}
+        {renderComponent(tab)}
       </div>
     </div>
   );

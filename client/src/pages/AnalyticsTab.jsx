@@ -142,6 +142,8 @@ const AnalyticsTab = () => {
           tmpPieChartData[rating]++;
         });
 
+        if (mnRating > 5) mnRating = 0;
+
         setMaxRating(mxRating);
         setMinRating(mnRating);
         setRoomCnt(cnt);
@@ -312,8 +314,8 @@ const AnalyticsTab = () => {
                 boxShadow: "1.5px 1.56px 3px 1px rgba(0,0,0,0.25)",
               }}
             >
-              <Line options={options} data={data} />
-              <p>Monthly Average Ratings</p>
+              <Line style={{}} options={options} data={data} />
+              <p style={{}}>Monthly Average Ratings</p>
             </div>
           </div>
         </div>
